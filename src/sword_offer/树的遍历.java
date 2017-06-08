@@ -33,7 +33,9 @@ public class 树的遍历 {
         node3.right = node7;
          
         
-        _rightTraversal(node1);
+        midTraversal(node1);
+        System.out.println();
+        _midTraversal(node1);
     }
     
     //===============递归写法===========================================
@@ -54,9 +56,11 @@ public class 树的遍历 {
      */
     public static void midTraversal(TreeNode root){
         if(root != null){
-            preorderTraversal(root.left);
-            System.out.println(root.val);
-            preorderTraversal(root.right);
+        	System.out.print("(");
+        	midTraversal(root.left);
+            System.out.print(root.val);
+            midTraversal(root.right);
+            System.out.print(")");
         }
     }
     
@@ -65,8 +69,8 @@ public class 树的遍历 {
      */
     public static void rightTraversal(TreeNode root){
         if(root != null){
-            preorderTraversal(root.left);
-            preorderTraversal(root.right);
+        	rightTraversal(root.left);
+        	rightTraversal(root.right);
             System.out.println(root.val);
         }
     }
@@ -102,8 +106,10 @@ public class 树的遍历 {
                 stack.push(flag);
                 flag = flag.left;
             }
+
             flag = stack.pop();
-            System.out.println(flag.val);
+            System.out.print(flag.val);
+            
             flag = flag.right;
         }
     }
