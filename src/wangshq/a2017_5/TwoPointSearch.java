@@ -2,18 +2,18 @@ package wangshq.a2017_5;
 
 public class TwoPointSearch {
 	public static void main(String[] args) {
-		
+		System.out.println(search(new int[]{1,3,5,7,8,10,22,23,33,34,41},10));;
 	}
 	
-	private int search(int[] arr , int k) {
+	private static int search(int[] arr , int k) {
 		int left = 0;
 		int right = arr.length-1;
 		int mid = left+(right - left)/2;
 		while(right>=left){
 			if(arr[mid] > k){
-				mid = right - 1;
+				right = mid - 1;
 			}else if (arr[mid] < k) {
-				mid = left + 1;
+				left = mid + 1;
 			}else {
 				return mid;
 			}
