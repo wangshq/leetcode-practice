@@ -1,6 +1,12 @@
 package sword_offer;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
+
+import javax.xml.soap.Node;
 
 class TreeNode {
     int val;
@@ -9,6 +15,15 @@ class TreeNode {
 
     TreeNode(int x) {
         val = x;
+    }
+    
+    /** (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return String.valueOf(val);
     }
 }
 public class 树的遍历 {
@@ -23,19 +38,37 @@ public class 树的遍历 {
         TreeNode node7 = new TreeNode(7);
          
          
-        node1.left = node2;
-        node1.right = node3;
+        node1.left = node3;
+        node1.right = node2;
          
         node2.left = node4;
         node2.right = node5;
          
         node3.left =  node6;
         node3.right = node7;
-         
+        TreeNode node8 = new TreeNode(8);
+        node6.right = node8;
         
-        midTraversal(node1);
-        System.out.println();
-        _midTraversal(node1);
+        List<TreeNode> aa = new ArrayList<TreeNode>();
+//        finalTraversal(node1,node8,aa);
+        cengciBianli(node1);
+//        System.out.println(aa.toString());
+//        System.out.println();
+    }
+    //==========层次遍历========================================
+    public static void cengciBianli(TreeNode root){
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(root);
+        TreeNode node = null;
+        while((node = queue.poll()) != null){
+            System.out.println(node);
+            if(node.left != null){
+                queue.add(node.left);
+            }
+            if(node.right != null){
+                queue.add(node.right);
+            }
+        }
     }
     
     //===============递归写法===========================================
@@ -64,14 +97,26 @@ public class 树的遍历 {
         }
     }
     
+    static boolean isFind = false;
     /**
      * 后序遍历
      */
-    public static void rightTraversal(TreeNode root){
+    public static void finalTraversal(TreeNode root,TreeNode find,List<TreeNode> path){
+        if(isFind){
+            return;
+        }
         if(root != null){
-        	rightTraversal(root.left);
-        	rightTraversal(root.right);
-            System.out.println(root.val);
+            path.add(root);
+            if(root == find){
+                isFind = true;
+                return;
+            }
+            finalTraversal(root.left,find,path);
+            finalTraversal(root.right,find,path);
+            if(isFind){
+                return;
+            }
+            path.remove(root);
         }
     }
     
